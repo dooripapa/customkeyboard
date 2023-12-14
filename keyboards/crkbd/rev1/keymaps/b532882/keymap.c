@@ -18,86 +18,159 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+// 0이면 영어, 1이면 한글
+static bool english_hangul_switch = 0;
+
+enum {
+    TD_KC_2_COMM,
+    TD_KC_3_DOT,
+    TD_KC_HOME,
+    TD_KC_END,
+    TD_CBR,
+    TD_BRC
+};
+
+void line_selected(tap_dance_state_t *state, void *user_data) {
+    if (state->count >= 2) {
+        tap_code16(KC_HOME);
+        tap_code16(S(KC_END));
+        reset_tap_dance(state);
+    }
+}
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_KC_2_COMM] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_COMM),
+    [TD_KC_3_DOT]  = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_DOT),
+    [TD_KC_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_HOME, S(KC_HOME)),
+    [TD_KC_END]  = ACTION_TAP_DANCE_DOUBLE(KC_END, S(KC_END)),
+    [TD_CBR]  = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+    [TD_BRC]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-KC_TAB  , KC_Q     , KC_W    , KC_E     , KC_R     , KC_T        , KC_Y         , KC_U         , KC_I     , KC_O     , KC_P     , KC_BSPC ,
-KC_LCTL , KC_A     , KC_S    , KC_D     , KC_F     , KC_G        , KC_H         , KC_J         , KC_K     , KC_L     , KC_SCLN  , KC_ENT  ,
-KC_LSFT , KC_Z     , KC_X    , KC_C     , KC_V     , KC_B        , KC_N         , KC_M         , KC_COMM  , KC_DOT   , KC_SLSH  , KC_RSFT ,
-                               KC_LGUI  , KC_LALT  , LT(1,KC_SPC), LT(2,KC_SPC) , LSFT(KC_SPC) , QK_LEADER
+    KC_TAB  , KC_Q      , KC_W    , KC_E    , KC_R    , KC_T        , KC_Y        , KC_U   , KC_I     , KC_O     , KC_P     , KC_BSPC ,
+    KC_LCTL , LT(5,KC_A), KC_S    , KC_D    , KC_F    , KC_G        , KC_H        , KC_J   , KC_K     , KC_L     , KC_SCLN  , KC_ENT  ,
+    KC_LSFT , KC_Z      , KC_X    , KC_C    , KC_V    , KC_B        , KC_N        , KC_M   , KC_COMM  , KC_DOT   , KC_SLSH  , KC_RSFT ,
+                                    KC_LGUI , KC_LALT , LT(1,KC_SPC), LT(2,KC_SPC), MO(3)  , QK_LEADER
 ),
 
 [1] = LAYOUT_split_3x6_3(
-KC_LALT , KC_F1    , KC_F2   , KC_F3    , KC_F4    , KC_F5       , KC_F6        , KC_F7        , KC_F8          , KC_F9        , KC_F10 , LSFT(KC_DEL),
-KC_LCTL , KC_NO    , KC_NO   , KC_LCTL  , KC_LSFT  , CW_TOGG     , KC_LEFT      , KC_DOWN      , KC_UP          , KC_RGHT      , KC_F11 , C(S(KC_ENT)),
-KC_LSFT , KC_NO    , KC_NO   , KC_NO    , KC_NO    , KC_NO       , C(S(KC_LEFT)), LSFT(KC_HOME), LSFT(KC_END)   , C(S(KC_RGHT)), KC_F12 , KC_INS      ,
-                               KC_TRNS  , KC_TRNS  , KC_TRNS     , _______      , LCTL(KC_INS) , LSFT(KC_INS)
+    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
+    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
+                                _______ , _______ , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
 
 [2] = LAYOUT_split_3x6_3(
-KC_NO   , KC_1     , KC_2    , KC_3      , KC_4     , KC_5        , KC_6         , KC_7         , KC_8           , KC_9         , KC_0    , KC_BSPC  ,
-KC_NO   , KC_NO    , KC_NO   , KC_GRV    , KC_EQL   , KC_LBRC     , KC_RBRC      , KC_MINS      , KC_BSLS        , KC_QUOT      , KC_NO   , KC_ENT   ,
-KC_NO   , KC_NO    , KC_NO   , KC_NO     , KC_NO    , KC_NO       , KC_NO        , KC_NO        , KC_NO          , KC_NO        , KC_NO   , KC_NO    ,
-                               KC_TRNS   , KC_TRNS  , _______     , KC_TRNS      , KC_TRNS      , KC_TRNS
+    _______ , S(KC_1)   , S(KC_2)  , S(KC_3)   , S(KC_4)   , S(KC_5)    , S(KC_6)    , S(KC_7)    , S(KC_8)    , S(KC_9)  , S(KC_0)    , _______ ,
+    _______ , KC_NO     , KC_GRV   , S(KC_GRV) , TD(TD_CBR), S(KC_BSLS) , KC_EQL     , KC_MINS    , S(KC_QUOT) , KC_QUOT  , S(KC_SCLN) , _______ ,
+    _______ , KC_NO     , KC_NO    , KC_NO     , TD(TD_BRC), KC_BSLS    , S(KC_EQL)  , S(KC_MINS) , S(KC_COMM) , S(KC_DOT), S(KC_SLSH) , _______ ,
+                                     _______   , _______   , _______    , _______    , KC_NO      , KC_NO
 ),
 
-/*
-[2] = LAYOUT_split_3x6_3(
-KC_GRV  , KC_EXLM  , KC_AT  , KC_HASH   , KC_DLR   , KC_PERC     , KC_CIRC      , KC_AMPR      , KC_ASTR        , KC_LPRN      , KC_RPRN , KC_DQUO    ,
-KC_TILD , KC_NO    , KC_NO  , KC_EQL    , KC_PLUS  , KC_NO       , KC_PIPE      , KC_MINS      , KC_NO          , KC_LCBR      , KC_RCBR , KC_QUOT    ,
-KC_TRNS , KC_NO    , KC_NO  , KC_NO     , KC_NO    , KC_NO       , KC_BSLS      , KC_UNDS      , KC_NO          , KC_LBRC      , KC_RBRC , KC_TRNS    ,
-                              KC_TRNS   , KC_TRNS  , MO(3)       , KC_TRNS      , KC_TRNS      , KC_TRNS
-),
-*/
-
-/*Game layout*/
 [3] = LAYOUT_split_3x6_3(
-KC_TAB  , KC_Q , KC_W  , KC_E    , KC_R    , KC_T    , KC_Y      , KC_U        , KC_I     , KC_O   , KC_P     , KC_BSPC ,
-KC_LSFT , KC_A , KC_S  , KC_D    , KC_F    , KC_G    , KC_H      , KC_J        , KC_K     , KC_L   , KC_SCLN  , KC_ENT  ,
-KC_LCTL , KC_Z , KC_X  , KC_C    , KC_V    , KC_B    , KC_N      , KC_M        , KC_COMM  , KC_DOT , KC_SLSH  , KC_RSFT ,
-                         KC_TRNS , KC_TRNS , KC_SPC  , KC_SPC    , LSFT(KC_SPC), KC_ESC
+    A(KC_F11)  , A(KC_F1)  , A(KC_F2)  , A(KC_F3) , A(KC_F4)  , A(KC_F5)    , A(KC_F6)  , A(KC_F7)  , A(KC_F8) , A(KC_F9)  , A(KC_F10)   , A(KC_F12) ,
+    KC_F11     , KC_F1     , KC_F2     , KC_F3    , KC_F4     , KC_F5       , KC_F6     , KC_F7     , KC_F8    , KC_F9     , KC_F10      , KC_F12    ,
+    C(KC_F11)  , C(KC_F1)  , C(KC_F2)  , C(KC_F3) , C(KC_F4)  , C(KC_F5)    , C(KC_F6)  , C(KC_F7)  , C(KC_F8) , C(KC_F9)  , C(KC_F10)   , C(KC_F12) ,
+                                         KC_LALT  , KC_LCTL   , KC_LSFT     , KC_NO     , _______   , KC_NO
+),
+/*Game layout*/
+[4] = LAYOUT_split_3x6_3(
+    KC_TAB  , KC_Q  , KC_W   , KC_E     , KC_R     , KC_T     , KC_Y      , KC_U        , KC_I     , KC_O      , KC_P      , KC_BSPC ,
+    KC_LSFT , KC_A  , KC_S   , KC_D     , KC_F     , KC_G     , KC_H      , KC_J        , KC_K     , KC_L      , KC_SCLN   , KC_ENT  ,
+    KC_LCTL , KC_Z  , KC_X   , KC_C     , KC_V     , KC_B     , KC_N      , KC_M        , KC_COMM  , KC_DOT    , KC_SLSH   , KC_RSFT ,
+                               KC_TRNS  , KC_TRNS  , KC_SPC   , KC_SPC    , LSFT(KC_SPC), KC_ESC
+),
+
+[5] = LAYOUT_split_3x6_3(
+    _______ , KC_1   , KC_2   , KC_3     , KC_4     , KC_5     , KC_6     , KC_7     , KC_8    , KC_9   , KC_0    , _______ ,
+    _______ , _______, KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5    , KC_6   , KC_NO   , _______ ,
+    _______ , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_0     , KC_1     , KC_2    , KC_3   , KC_SLSH , KC_NO   ,
+                                _______  , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_DOT
 ),
 
 };
+
 
 #if 1
 
 enum combs {
-    ESC_KEY,
-/*
-    NUM_PAD,
-    FUNC_PAD,
+    BIG,
+    ESC,
+    ESC2,
     PRN,  // ( )
     CBR,  // { }
     BRC,  // [ ]
-*/
+    EQL,
+    NEQ,
+    PASSWRD1,
+    PASSWRD2,
     GAME
 };
 
-const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K   , COMBO_END}; // ESC
-/*
-const uint16_t PROGMEM num_combo     [] = {KC_D   , KC_F   , COMBO_END}; // NUMBER
-const uint16_t PROGMEM funckey_combo [] = {KC_C   , KC_V   , COMBO_END}; // F1, F2, ...
+const uint16_t PROGMEM big_combo     [] = {KC_F   , KC_G   , COMBO_END};
+const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K   , COMBO_END};
 const uint16_t PROGMEM prn_combo     [] = {KC_E   , KC_R   , COMBO_END}; // ( )
 const uint16_t PROGMEM cbr_combo     [] = {KC_D   , KC_F   , COMBO_END}; // { }
 const uint16_t PROGMEM brc_combo     [] = {KC_C   , KC_V   , COMBO_END}; // [ ]
-*/
+const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I   , COMBO_END}; // ==
+const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM, COMBO_END}; // !=
+const uint16_t PROGMEM pass1_combo   [] = {KC_W   , KC_E   , COMBO_END}; //
+const uint16_t PROGMEM pass2_combo   [] = {KC_S   , KC_D   , COMBO_END}; //
 const uint16_t PROGMEM game_combo    [] = {KC_TAB , KC_BSPC, COMBO_END}; // game layout
 
 combo_t key_combos[COMBO_COUNT] = {
-    [ESC_KEY]  = COMBO       ( esc_combo    , KC_ESC ),
-/*
-    [NUM_PAD]  = COMBO       ( num_combo    , MO(3)  ),
-    [FUNC_PAD] = COMBO       ( funckey_combo, MO(4)  ),
-    [PRN]      = COMBO_ACTION( prn_combo      ),
-    [CBR]      = COMBO_ACTION( cbr_combo      ),
-    [BRC]      = COMBO_ACTION( brc_combo      ),
-*/
-    [GAME]     = COMBO_ACTION( game_combo     ),
+    [BIG]        = COMBO( big_combo , CW_TOGG ),
+    [ESC]        = COMBO_ACTION( esc_combo      ),
+    [PRN]        = COMBO_ACTION( prn_combo      ),
+    [CBR]        = COMBO_ACTION( cbr_combo      ),
+    [BRC]        = COMBO_ACTION( brc_combo      ),
+    [EQL]        = COMBO_ACTION( eql_combo      ),
+    [NEQ]        = COMBO_ACTION( neq_combo      ),
+    [PASSWRD1]   = COMBO_ACTION( pass1_combo    ),
+    [PASSWRD2]   = COMBO_ACTION( pass2_combo    ),
+    [GAME]       = COMBO_ACTION( game_combo     ),
 };
 
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    switch (combo_index) {
+        case BIG:
+        case ESC:
+        case PRN:  // ( )
+        case CBR:  // { }
+        case BRC:  // [ ]
+        case EQL:
+        case NEQ:
+        case PASSWRD1:
+        case PASSWRD2:
+            if (layer_state_is(4)) {
+                return false;
+            }
+        case GAME:
+        default:
+            break;
+    }
+
+    return true;
+}
+
 void process_combo_event(uint16_t combo_index, bool pressed) {
+
     switch(combo_index) {
-/*
+        case ESC:
+            if (pressed) {
+                //한글이면 esc키를 누르면 영문으로 강제로 변환
+                if( english_hangul_switch == 1)
+                {
+                    english_hangul_switch = 0;
+                    tap_code16(S(KC_SPC));
+                }
+                tap_code16(KC_ESC);
+            }
+            break;
         case PRN:
             if (pressed) {
                 tap_code16(KC_LPRN);
@@ -119,10 +192,32 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code16(KC_LEFT);
             }
             break;
-*/
+        case EQL:
+            if (pressed) {
+                tap_code16(KC_EQL);
+                tap_code16(KC_EQL);
+            }
+            break;
+        case NEQ:
+            if (pressed) {
+                tap_code16(S(KC_1));
+                tap_code16(KC_EQL);
+            }
+            break;
+        case PASSWRD1:
+            if (pressed) {
+                SEND_STRING("krx!12345");
+            }
+            break;
+        case PASSWRD2:
+            if (pressed) {
+                SEND_STRING("Rlqkstldnjf10!");
+            }
+            break;
         case GAME:
             if (pressed) {
-                layer_invert(3);
+                SEND_STRING("switch");
+                layer_invert(4);
             }
             break;
     }
@@ -205,26 +300,23 @@ static bool process_tap_or_long_press_key(
 /////////////////////////////////////////////////////////////////////////////////
 //  shfit feature
 /////////////////////////////////////////////////////////////////////////////////
+#if 0
 uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case AUTO_SHIFT_NUMERIC:
-            return get_generic_autoshift_timeout();
+            //return get_generic_autoshift_timeout();
         case AUTO_SHIFT_SPECIAL:
-            return get_generic_autoshift_timeout() * 2;
+            //return get_generic_autoshift_timeout() * 2;
         case AUTO_SHIFT_ALPHA:
-        default:
-            return get_generic_autoshift_timeout();
+            return 200;
     }
-}	
-#if 0
+    return 200;
+}
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case KC_T:
-        case KC_G:
-        case KC_B:
-        case KC_Y:
-        case KC_H:
-        case KC_N:
+        case S(KC_BSLS):
+        case KC_MINS:
+        case KC_EQL:
             return true;
         default:
             return false;
@@ -232,23 +324,14 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case KC_T:
-            register_code16((!shifted) ? KC_T : KC_LPRN);
+        case S(KC_BSLS):
+            register_code16((!shifted) ? S(KC_BSLS) : KC_BSLS );
             break;
-        case KC_Y:
-            register_code16((!shifted) ? KC_Y : KC_RPRN);
+        case KC_MINS:
+            register_code16((!shifted) ? KC_MINS: S(KC_MINS));
             break;
-        case KC_G:
-            register_code16((!shifted) ? KC_G : KC_LCBR);
-            break;
-        case KC_H:
-            register_code16((!shifted) ? KC_H : KC_RCBR);
-            break;
-        case KC_B:
-            register_code16((!shifted) ? KC_B : KC_LBRC);
-            break;
-        case KC_N:
-            register_code16((!shifted) ? KC_N : KC_RBRC);
+        case KC_EQL:
+            register_code16((!shifted) ? KC_EQL: S(KC_EQL));
             break;
         default:
             if (shifted) {
@@ -261,23 +344,14 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case KC_T:
-            unregister_code16((!shifted) ? KC_T : KC_LPRN);
+        case S(KC_BSLS):
+            unregister_code16((!shifted) ? S(KC_BSLS) : KC_BSLS );
             break;
-        case KC_Y:
-            unregister_code16((!shifted) ? KC_Y : KC_RPRN);
+        case KC_MINS:
+            unregister_code16((!shifted) ? KC_MINS: S(KC_MINS));
             break;
-        case KC_G:
-            unregister_code16((!shifted) ? KC_G : KC_LCBR);
-            break;
-        case KC_H:
-            unregister_code16((!shifted) ? KC_H : KC_RCBR);
-            break;
-        case KC_B:
-            unregister_code16((!shifted) ? KC_B : KC_LBRC);
-            break;
-        case KC_N:
-            unregister_code16((!shifted) ? KC_N : KC_RBRC);
+        case KC_EQL:
+            unregister_code16((!shifted) ? KC_EQL: S(KC_EQL));
             break;
         default:
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
@@ -300,99 +374,45 @@ void leader_start_user(void) {
 }
 
 void leader_end_user(void) {
-	// ()
-	if (leader_sequence_one_key(KC_T)) {
-        tap_code16( KC_LPRN );
-        tap_code16( KC_RPRN );
-        tap_code16( KC_LEFT );
-    }
-	// {}
-	else if (leader_sequence_one_key(KC_G)) {
-        tap_code16( KC_LCBR );
-        tap_code16( KC_RCBR );
-        tap_code16( KC_LEFT );
-    }
-	// []
-	else if (leader_sequence_one_key(KC_B)) {
-        tap_code16( KC_LBRC );
-        tap_code16( KC_RBRC );
-        tap_code16( KC_LEFT );
-    }
-	// {
-	// _ -> cursor
-	// }
-	else if (leader_sequence_one_key(KC_H)) {
-        tap_code16( KC_LCBR );
-        tap_code16( KC_RCBR );
-        tap_code16( KC_LEFT );
-        tap_code16( KC_ENT );
-        tap_code16( KC_ENT );
-        tap_code16( KC_UP );
-    }
-	// Intellij 함수생성
-    else if (leader_sequence_two_keys(KC_N, KC_F)) {
+    // Intellij 함수생성
+    if (leader_sequence_two_keys(KC_N, KC_F)) {
         tap_code16( A(S(KC_ENT)) );
     }
-	// Intellij 함수단위테스트 실행 
+        // Intellij 함수단위테스트 실행
     else if (leader_sequence_two_keys(KC_F, KC_T)) {
         tap_code16( C(S(KC_F10)) );
     }
-	// Intellij Debugging BreakPoint
+        // Intellij Debugging BreakPoint
     else if (leader_sequence_one_key(KC_B)) {
         tap_code16( C(KC_F8) );
     }
-	// Intellij Run Build
+        // Intellij Run Build
     else if (leader_sequence_two_keys(KC_R,KC_B)) {
         tap_code16( C(KC_F9) );
     }
-	// Intellij Run 
+        // Intellij Run
     else if (leader_sequence_one_key(KC_E)) {
         tap_code16( S(KC_F10) );
     }
-	// Intellij Run Debugging 
+        // Intellij Run Debugging
     else if (leader_sequence_one_key(KC_D)) {
         tap_code16( S(KC_F9) );
     }
-	// 스텝
+        // 스텝
     else if (leader_sequence_one_key(KC_I)) {
         tap_code16( KC_F8 );
     }
-	// into
+        // into
     else if (leader_sequence_one_key(KC_U)) {
         tap_code16( KC_F7 );
     }
-	// 만날때까지
+        // 만날때까지
     else if (leader_sequence_one_key(KC_O)) {
         tap_code16( KC_F9 );
     }
-	// 디버깅 중단
+        // 디버깅 중단
     else if (leader_sequence_one_key(KC_COMM)) {
         tap_code16( C(KC_F2) );
-    }
-    else if (leader_sequence_two_keys(KC_L,KC_F)) {
-        SEND_STRING("LOG(FATAL,);");
-        tap_code16( KC_LEFT );
-        tap_code16( KC_LEFT );
-    }
-    else if (leader_sequence_two_keys(KC_L,KC_W)) {
-        SEND_STRING("LOG(WARN,);");
-        tap_code16( KC_LEFT );
-        tap_code16( KC_LEFT );
-    }
-    else if (leader_sequence_two_keys(KC_L,KC_D)) {
-        SEND_STRING("LOG(DEBUG,);");
-        tap_code16( KC_LEFT );
-        tap_code16( KC_LEFT );
-    }
-    else if (leader_sequence_two_keys(KC_L,KC_I)) {
-        SEND_STRING("LOG(INFO,);");
-        tap_code16( KC_LEFT );
-        tap_code16( KC_LEFT );
-    }
-    else if (leader_sequence_two_keys(KC_L,KC_E)) {
-        SEND_STRING("LOG(ERROR,);");
-        tap_code16( KC_LEFT );
-        tap_code16( KC_LEFT );
     }
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -495,7 +515,42 @@ bool oled_task_user(void) {
 }
 
 
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1,KC_SPC):
+        case LT(2,KC_SPC):
+            // Immediately select the hold action when another key is tapped.
+            return true;
+        default:
+            // Do not select the hold action when another key is tapped.
+            return false;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_KC_HOME):
+        case TD(TD_KC_END):
+        case TD(TD_CBR):
+        case TD(TD_BRC):
+            return 300;
+        default:
+            return 180;
+    }
+}
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, KC_SPC):
+        case LT(2, KC_SPC):
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
 
     uint8_t mod_state;
     static bool delkey_registered ,ctrlbrace_registered ,ctrlt_registered;
@@ -590,8 +645,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 
             //ctrl + K 누르면 PAGE UP으로 대응함.
-        case KC_K:
-            mod_state = get_mods();
+		case KC_K:
+			mod_state = get_mods();
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_CTRL) {
                     del_mods(MOD_MASK_CTRL);
@@ -607,10 +662,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
-            // Let QMK process the KC_BSPC keycode as usual outside of shift
+            //shift + space 누르면 한영 상태값이 저장함
+        case KC_SPC:
+            mod_state = get_mods();
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+
+                    if(english_hangul_switch == 0)
+                        english_hangul_switch = 1;
+                    else
+                        english_hangul_switch = 0;
+
+                    set_mods(mod_state);
+                    return true;
+                }
+            }
+            break;
         default:
             break;
     }
     return true;
 }
-#endif // OLED_ENABLE
+#endif // OLED_ENGAME

@@ -21,16 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 //#define USE_MATRIX_I2C
+#define SPLIT_USB_DETECT
 
 /* Select hand configuration */
-#define COMBO_COUNT 5
+#define COMBO_SHOULD_TRIGGER
+#define COMBO_COUNT 11
 #define COMBO_TERM 45
 
 /* shift feature */
-#define AUTO_SHIFT_TIMEOUT_PER_KEY
+//#define AUTO_SHIFT_TIMEOUT_PER_KEY
+#define AUTO_SHIFT_TIMEOUT 200
 #define NO_AUTO_SHIFT_ALPHA
-//#define NO_AUTO_SHIFT_NUMERIC
-//#define NO_AUTO_SHIFT_SPECIAL
+#define NO_AUTO_SHIFT_NUMERIC
+#define NO_AUTO_SHIFT_SPECIAL
 
 #define LEADER_TIMEOUT 700
 
@@ -38,8 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-//#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 180
+#define TAPPING_TERM_PER_KEY
+#define RETRO_TAPPING_PER_KEY
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
@@ -57,3 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
+
+
+
