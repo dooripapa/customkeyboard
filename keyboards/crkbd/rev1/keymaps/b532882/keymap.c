@@ -58,15 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_split_3x6_3(
-    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
-    _______ , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
-                                _______ , _______ , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
+    A(KC_TAB), KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
+    KC_LCTL  , KC_NO  , KC_NO  , A(KC_D) , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
+                                 _______ , _______ , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
 
 [2] = LAYOUT_split_3x6_3(
     _______ , S(KC_1)   , S(KC_2)  , S(KC_3)   , S(KC_4)   , S(KC_5)    , S(KC_6)    , S(KC_7)    , S(KC_8)    , S(KC_9)  , S(KC_0)    , _______ ,
-    _______ , KC_NO     , KC_GRV   , S(KC_GRV) , TD(TD_CBR), S(KC_BSLS) , KC_EQL     , KC_MINS    , S(KC_QUOT) , KC_QUOT  , S(KC_SCLN) , _______ ,
+    KC_LCTL , KC_NO     , KC_GRV   , S(KC_GRV) , TD(TD_CBR), S(KC_BSLS) , KC_EQL     , KC_MINS    , S(KC_QUOT) , KC_QUOT  , S(KC_SCLN) , _______ ,
     _______ , KC_NO     , KC_NO    , KC_NO     , TD(TD_BRC), KC_BSLS    , S(KC_EQL)  , S(KC_MINS) , S(KC_COMM) , S(KC_DOT), S(KC_SLSH) , _______ ,
                                      _______   , _______   , _______    , _______    , _______    , _______
 ),
@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_split_3x6_3(
-    _______ , KC_1   , KC_2   , KC_3     , KC_4     , KC_5     , KC_6     , KC_7     , KC_8    , KC_9   , KC_0    , _______ ,
-    _______ , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5    , KC_6   , KC_NO   , _______ ,
-    _______ , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_0     , KC_1     , KC_2    , KC_3   , KC_SLSH , KC_NO   ,
+    KC_TAB  , KC_1   , KC_2   , KC_3     , KC_4     , KC_5     , KC_6     , KC_7     , KC_8    , KC_9   , KC_0    , _______ ,
+    KC_LCTL , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5    , KC_6   , KC_NO   , _______ ,
+    KC_LSFT , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_0     , KC_1     , KC_2    , KC_3   , KC_SLSH , KC_NO   ,
                                 _______  , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_DOT
 ),
 
