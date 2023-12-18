@@ -51,10 +51,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-    LT(5,KC_TAB)  , KC_Q   , KC_W    , KC_E    , KC_R    , KC_T        , KC_Y        , KC_U   , KC_I     , KC_O     , KC_P     , KC_BSPC ,
-    LCTL_T(KC_ESC), KC_A   , KC_S    , KC_D    , KC_F    , KC_G        , KC_H        , KC_J   , KC_K     , KC_L     , KC_SCLN  , KC_ENT  ,
-    KC_LSFT       , KC_Z   , KC_X    , KC_C    , KC_V    , KC_B        , KC_N        , KC_M   , KC_COMM  , KC_DOT   , KC_SLSH  , KC_RSFT ,
-                                       KC_LGUI , KC_LALT , LT(1,KC_SPC), LT(2,KC_SPC), MO(3)  , QK_LEADER
+    KC_TAB        , KC_Q   , KC_W    , KC_E    , KC_R   , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P     , KC_BSPC ,
+    LCTL_T(KC_ESC), KC_A   , KC_S    , KC_D    , KC_F   , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN  , KC_ENT  ,
+    KC_LSFT       , KC_Z   , KC_X    , KC_C    , KC_V   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH  , KC_RSFT ,
+                                       KC_LGUI , MO(5)  , LT(1,KC_SPC), LT(2,KC_SPC), KC_LALT , LT(3, QK_LEADER)
 ),
 
 [1] = LAYOUT_split_3x6_3(
@@ -68,14 +68,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , S(KC_1)   , S(KC_2)  , S(KC_3)   , S(KC_4)   , S(KC_5)    , S(KC_6)    , S(KC_7)    , S(KC_8)    , S(KC_9)  , S(KC_0)    , _______ ,
     _______ , KC_NO     , KC_GRV   , S(KC_GRV) , TD(TD_CBR), S(KC_BSLS) , KC_EQL     , KC_MINS    , S(KC_QUOT) , KC_QUOT  , S(KC_SCLN) , _______ ,
     _______ , KC_NO     , KC_NO    , KC_NO     , TD(TD_BRC), KC_BSLS    , S(KC_EQL)  , S(KC_MINS) , S(KC_COMM) , S(KC_DOT), S(KC_SLSH) , _______ ,
-                                     _______   , _______   , _______    , _______    , KC_NO      , KC_NO
+                                     _______   , _______   , _______    , _______    , _______    , _______
 ),
 
 [3] = LAYOUT_split_3x6_3(
     A(KC_F11)  , A(KC_F1)  , A(KC_F2)  , A(KC_F3) , A(KC_F4)  , A(KC_F5)    , A(KC_F6)  , A(KC_F7)  , A(KC_F8) , A(KC_F9)  , A(KC_F10)   , A(KC_F12) ,
     KC_F11     , KC_F1     , KC_F2     , KC_F3    , KC_F4     , KC_F5       , KC_F6     , KC_F7     , KC_F8    , KC_F9     , KC_F10      , KC_F12    ,
     C(KC_F11)  , C(KC_F1)  , C(KC_F2)  , C(KC_F3) , C(KC_F4)  , C(KC_F5)    , C(KC_F6)  , C(KC_F7)  , C(KC_F8) , C(KC_F9)  , C(KC_F10)   , C(KC_F12) ,
-                                         KC_LALT  , KC_LCTL   , KC_LSFT     , KC_NO     , _______   , KC_NO
+                                         KC_LALT  , KC_LCTL   , KC_LSFT     , KC_NO     , KC_NO     , _______
 ),
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
@@ -519,7 +519,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1, KC_SPC):
         case LT(2, KC_SPC):
-        case LT(5, KC_TAB): 
+		case LT(3, QK_LEADER):
 		case LCTL_T(KC_ESC):
             // Immediately select the hold action when another key is tapped.
             return true;
@@ -545,7 +545,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1, KC_SPC):
         case LT(2, KC_SPC):
-        case LT(5, KC_TAB): 
+		case LT(3, QK_LEADER):
 		case LCTL_T(KC_ESC):
             return true;
         default:
