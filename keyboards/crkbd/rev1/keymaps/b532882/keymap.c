@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_split_3x6_3(
-    KC_TAB  , KC_1   , KC_2   , KC_3     , KC_4     , KC_5     , KC_6     , KC_7     , KC_8    , KC_9   , KC_0    , _______ ,
-    KC_LCTL , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5    , KC_6   , KC_NO   , _______ ,
-    KC_LSFT , KC_NO  , KC_NO  , KC_NO    , KC_NO    , KC_NO    , KC_0     , KC_1     , KC_2    , KC_3   , KC_SLSH , KC_NO   ,
+    A(KC_TAB), KC_1   , KC_2   , KC_3    , KC_4     , KC_5     , KC_6     , KC_7     , KC_8    , KC_9   , KC_0    , _______ ,
+    KC_LCTL  , KC_NO  , KC_NO  , A(KC_D) , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5    , KC_6   , KC_NO   , _______ ,
+    KC_LSFT  , KC_NO  , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_0     , KC_1     , KC_2    , KC_3   , KC_SLSH , KC_NO   ,
                                 _______  , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_DOT
 ),
 
