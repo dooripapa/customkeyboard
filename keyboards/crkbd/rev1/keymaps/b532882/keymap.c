@@ -72,10 +72,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_split_3x6_3(
-    A(KC_F11)  , A(KC_F1)  , A(KC_F2)  , A(KC_F3) , A(KC_F4)  , A(KC_F5)    , A(KC_F6)  , A(KC_F7)  , A(KC_F8) , A(KC_F9)  , A(KC_F10)   , A(KC_F12) ,
-    KC_F11     , KC_F1     , KC_F2     , KC_F3    , KC_F4     , KC_F5       , KC_F6     , KC_F7     , KC_F8    , KC_F9     , KC_F10      , KC_F12    ,
-    C(KC_F11)  , C(KC_F1)  , C(KC_F2)  , C(KC_F3) , C(KC_F4)  , C(KC_F5)    , C(KC_F6)  , C(KC_F7)  , C(KC_F8) , C(KC_F9)  , C(KC_F10)   , C(KC_F12) ,
-                                         KC_LALT  , KC_LCTL   , KC_LSFT     , KC_NO     , KC_NO     , _______
+    KC_TAB     , KC_F9     , KC_F10    , KC_F11   , KC_F12    , KC_PSCR    , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , KC_NO ,
+    KC_LCTL    , KC_F5     , KC_F6     , KC_F7    , KC_F8     , KC_APP     , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , KC_NO ,
+    KC_LSFT    , KC_F1     , KC_F2     , KC_F3    , KC_F4     , KC_NO      , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , KC_NO ,
+                                         KC_LGUI  , KC_LALT   , KC_LSFT    , KC_NO     , KC_NO     , _______
 ),
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
