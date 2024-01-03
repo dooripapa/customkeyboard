@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-// 0이면 영어, 1이면 한글
-static bool english_hangul_switch = 0;
-
 enum {
     TD_KC_2_COMM,
     TD_KC_3_DOT,
@@ -54,12 +51,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB        , KC_Q   , KC_W    , KC_E    , KC_R   , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
     LCTL_T(KC_ESC), KC_A   , KC_S    , KC_D    , KC_F   , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , KC_ENT  ,
     KC_LSFT       , KC_Z   , KC_X    , KC_C    , KC_V   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
-                                       KC_LGUI , MO(5)  , LT(1,KC_SPC), LT(2,KC_SPC), KC_LALT , LT(3, QK_LEADER)
+                                       KC_LGUI , KC_LALT, LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
 ),
 
 [1] = LAYOUT_split_3x6_3(
-    A(KC_TAB), KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    KC_LCTL  , KC_NO  , KC_NO  , A(KC_D) , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    KC_TAB   , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
+    KC_LCTL  , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
     _______  , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
                                  _______ , _______ , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
@@ -72,24 +69,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_split_3x6_3(
-    KC_TAB     , KC_F9     , KC_F10    , KC_F11   , KC_F12    , KC_PSCR    , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , _______ ,
-    KC_LCTL    , KC_F5     , KC_F6     , KC_F7    , KC_F8     , KC_APP     , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , _______ ,
-    KC_LSFT    , KC_F1     , KC_F2     , KC_F3    , KC_F4     , KC_INS     , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , _______ ,
-                                         KC_LGUI  , KC_LALT   , _______    , _______   , KC_LALT   , _______
+    KC_TAB  , KC_F9  , KC_F10 , KC_F11  , KC_F12   , KC_PSCR  , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+    KC_LCTL , KC_F5  , KC_F6  , KC_F7   , KC_F8    , KC_APP   , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+    KC_LSFT , KC_F1  , KC_F2  , KC_F3   , KC_F4    , KC_INS   , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+                                          _______  , _______  , _______   , _______  , KC_NO    , _______
 ),
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
-    KC_TAB  , KC_Q  , KC_W   , KC_E     , KC_R     , KC_T     , KC_Y      , KC_U        , KC_I     , KC_O      , KC_P      , KC_BSPC ,
-    KC_LSFT , KC_A  , KC_S   , KC_D     , KC_F     , KC_G     , KC_H      , KC_J        , KC_K     , KC_L      , KC_SCLN   , KC_ENT  ,
-    KC_LCTL , KC_Z  , KC_X   , KC_C     , KC_V     , KC_B     , KC_N      , KC_M        , KC_COMM  , KC_DOT    , KC_SLSH   , KC_RSFT ,
-                               KC_TRNS  , KC_TRNS  , KC_SPC   , KC_SPC    , LSFT(KC_SPC), KC_ESC
+    KC_TAB  , KC_Q  , KC_W   , KC_E     , KC_R     , KC_T     , KC_Y      , KC_U     , KC_I     , KC_O     , KC_P    , KC_BSPC ,
+    KC_LSFT , KC_A  , KC_S   , KC_D     , KC_F     , KC_G     , KC_H      , KC_J     , KC_K     , KC_L     , KC_SCLN , KC_ENT  ,
+    KC_LCTL , KC_Z  , KC_X   , KC_C     , KC_V     , KC_B     , KC_N      , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH , KC_RSFT ,
+                               _______  , _______  , KC_SPC   , KC_SPC    , _______  , KC_ESC
 ),
 
 [5] = LAYOUT_split_3x6_3(
-    A(KC_TAB), KC_1   , KC_2   , KC_3    , KC_4     , KC_5     , KC_6     , KC_7     , KC_8             , KC_9            , KC_0    , _______ ,
-    KC_LCTL  , KC_NO  , KC_NO  , A(KC_D) , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5             , KC_6            , KC_NO   , _______ ,
+    KC_TAB   , KC_NO  , KC_NO  , KC_NO   , KC_NO    , KC_5     , KC_6     , KC_7     , KC_8             , KC_9            , KC_0    , _______ ,
+    KC_LCTL  , KC_NO  , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_4     , KC_5             , KC_6            , KC_NO   , _______ ,
     KC_LSFT  , KC_NO  , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_0     , KC_1     , TD(TD_KC_2_COMM) , TD(TD_KC_3_DOT) , KC_SLSH , KC_NO   ,
-                                _______  , _______  , KC_SPC   , KC_SPC   , KC_LALT  , _______
+                                _______  , _______  , KC_SPC   , KC_SPC   , _______  , _______
 ),
 
 // 
@@ -170,12 +167,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
         case ESC:
             if (pressed) {
-                //한글이면 esc키를 누르면 영문으로 강제로 변환
-                if( english_hangul_switch == 1)
-                {
-                    english_hangul_switch = 0;
-                    tap_code16(S(KC_SPC));
-                }
                 tap_code16(KC_ESC);
             }
             break;
@@ -567,6 +558,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t mod_state;
     static bool delkey_registered ,ctrlbrace_registered ,ctrlt_registered;
     static bool j_registered, k_registered;
+    static bool right_alt;
+    static bool right_ctrl;
 
     if (record->event.pressed) {
         set_keylog(keycode, record);
@@ -601,6 +594,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
+			break;
         //ctrl + , 누르면 ctrl + t로 대응함.
         case KC_COMM:
             mod_state = get_mods();
@@ -618,7 +612,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
-
+			break;
             //ctrl + . 누르면 ctrl + ]로 대응함.
         case KC_DOT:
             mod_state = get_mods();
@@ -636,7 +630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
-
+			break;
             //ctrl + J 누르면 PAGE DOWN로 대응함.
         case KC_J:
             mod_state = get_mods();
@@ -655,7 +649,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
-
+			break;
             //ctrl + K 누르면 PAGE UP으로 대응함.
 		case KC_K:
 			mod_state = get_mods();
@@ -674,22 +668,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
             }
-            //shift + space 누르면 한영 상태값이 저장함
-        case KC_SPC:
+			break;
+            //shift + LT(2, KC_SPC) 누르면 한영Key
+        case LT(2, KC_SPC):
             mod_state = get_mods();
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-
-                    if(english_hangul_switch == 0)
-                        english_hangul_switch = 1;
-                    else
-                        english_hangul_switch = 0;
-
+                    register_code(KC_RALT);
+                    right_alt = true;
                     set_mods(mod_state);
-                    return true;
+                    return false;
                 }
-            }
+            } else {
+                if (right_alt) {
+                    unregister_code(KC_RALT);
+                    right_alt = false;
+                    return false;
+                }
+			}
+            break;
+            //shift + MO(5) 누르면 한자Key
+        case MO(5):
+            mod_state = get_mods();
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    register_code(KC_RCTL);
+                    right_ctrl= true;
+                    set_mods(mod_state);
+                    return false;
+                }
+            } else {
+                if (right_ctrl) {
+                    unregister_code(KC_RCTL);
+                    right_ctrl = false;
+                    return false;
+                }
+			}
             break;
         default:
             break;
