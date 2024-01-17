@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_split_3x6_3(
-    KC_TAB   , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    KC_LCTL  , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
-    _______  , KC_NO  , KC_NO  , KC_NO   , KC_NO   , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
-                                 _______ , _______ , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
+    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
+    KC_LCTL  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
+                                 _______      , _______      , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
 
 [2] = LAYOUT_split_3x6_3(
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB  , KC_Q  , KC_W   , KC_E     , KC_R     , KC_T     , KC_Y      , KC_U     , KC_I     , KC_O     , KC_P    , KC_BSPC ,
     KC_LSFT , KC_A  , KC_S   , KC_D     , KC_F     , KC_G     , KC_H      , KC_J     , KC_K     , KC_L     , KC_SCLN , KC_ENT  ,
     KC_LCTL , KC_Z  , KC_X   , KC_C     , KC_V     , KC_B     , KC_N      , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH , KC_RSFT ,
-                               _______  , _______  , KC_SPC   , KC_SPC    , _______  , KC_ESC
+                               _______  , _______  , KC_SPC   , KC_SPC    , KC_RALT  , KC_ESC
 ),
 
 [5] = LAYOUT_split_3x6_3(
