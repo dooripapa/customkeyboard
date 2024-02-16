@@ -48,10 +48,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-    KC_TAB        , KC_Q   , KC_W    , KC_E    , KC_R   , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
-    LCTL_T(KC_ESC), KC_A   , KC_S    , KC_D    , KC_F   , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , KC_ENT  ,
-    KC_LSFT       , KC_Z   , KC_X    , KC_C    , KC_V   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
-                                       KC_LGUI , KC_LALT, LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
+    KC_TAB   , KC_Q   , KC_W    , KC_E    , KC_R   , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
+    KC_LCTL  , KC_A   , KC_S    , KC_D    , KC_F   , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , KC_ENT  ,
+    KC_LSFT  , KC_Z   , KC_X    , KC_C    , KC_V   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
+                                  KC_LGUI , KC_LALT, LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
 ),
 
 [1] = LAYOUT_split_3x6_3(
@@ -105,7 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum combs {
     BIG,
     ESC,
-    ESC2,
     PRN,  // ( )
     CBR,  // { }
     BRC,  // [ ]
@@ -113,6 +112,7 @@ enum combs {
     NEQ,
     PASSWRD1,
     PASSWRD2,
+    PASSWRD3,
     GAME
 };
 
@@ -125,6 +125,7 @@ const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I   , COMBO_END}; // ==
 const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM, COMBO_END}; // !=
 const uint16_t PROGMEM pass1_combo   [] = {KC_W   , KC_E   , COMBO_END}; //
 const uint16_t PROGMEM pass2_combo   [] = {KC_S   , KC_D   , COMBO_END}; //
+const uint16_t PROGMEM pass3_combo   [] = {KC_X   , KC_C   , COMBO_END}; //
 const uint16_t PROGMEM game_combo    [] = {KC_TAB , KC_BSPC, COMBO_END}; // game layout
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -137,6 +138,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [NEQ]        = COMBO_ACTION( neq_combo      ),
     [PASSWRD1]   = COMBO_ACTION( pass1_combo    ),
     [PASSWRD2]   = COMBO_ACTION( pass2_combo    ),
+    [PASSWRD3]   = COMBO_ACTION( pass3_combo    ),
     [GAME]       = COMBO_ACTION( game_combo     ),
 };
 
@@ -151,6 +153,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case NEQ:
         case PASSWRD1:
         case PASSWRD2:
+        case PASSWRD3:
             if (layer_state_is(4)) {
                 return false;
             }
@@ -211,6 +214,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case PASSWRD2:
             if (pressed) {
                 SEND_STRING("Rlqkstlqdldnjf12!");
+            }
+            break;
+        case PASSWRD3:
+            if (pressed) {
+                SEND_STRING("Bursa2021!");
             }
             break;
         case GAME:
@@ -519,7 +527,6 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case LT(1, KC_SPC):
         case LT(2, KC_SPC):
 		case LT(3, QK_LEADER):
-		case LCTL_T(KC_ESC):
             // Immediately select the hold action when another key is tapped.
             return true;
         default:
@@ -545,7 +552,6 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
         case LT(1, KC_SPC):
         case LT(2, KC_SPC):
 		case LT(3, QK_LEADER):
-		case LCTL_T(KC_ESC):
             return true;
         default:
             return false;
