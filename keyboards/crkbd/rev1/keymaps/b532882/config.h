@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* shift feature */
 //#define AUTO_SHIFT_TIMEOUT_PER_KEY
 #define AUTO_SHIFT_TIMEOUT 200
+#define AUTO_SHIFT_REPEAT
 #define NO_AUTO_SHIFT_ALPHA
 #define NO_AUTO_SHIFT_NUMERIC
 #define NO_AUTO_SHIFT_SPECIAL

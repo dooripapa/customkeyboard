@@ -307,7 +307,7 @@ static bool process_tap_or_long_press_key(
 /////////////////////////////////////////////////////////////////////////////////
 //  shfit feature
 /////////////////////////////////////////////////////////////////////////////////
-#if 0
+#if 1
 uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case AUTO_SHIFT_NUMERIC:
@@ -317,13 +317,11 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
         case AUTO_SHIFT_ALPHA:
             return 200;
     }
-    return 200;
+    return 400;
 }
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case S(KC_BSLS):
-        case KC_MINS:
-        case KC_EQL:
+		case KC_ENT:
             return true;
         default:
             return false;
@@ -331,14 +329,8 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case S(KC_BSLS):
-            register_code16((!shifted) ? S(KC_BSLS) : KC_BSLS );
-            break;
-        case KC_MINS:
-            register_code16((!shifted) ? KC_MINS: S(KC_MINS));
-            break;
-        case KC_EQL:
-            register_code16((!shifted) ? KC_EQL: S(KC_EQL));
+        case KC_ENT:
+            register_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
             break;
         default:
             if (shifted) {
@@ -351,14 +343,8 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case S(KC_BSLS):
-            unregister_code16((!shifted) ? S(KC_BSLS) : KC_BSLS );
-            break;
-        case KC_MINS:
-            unregister_code16((!shifted) ? KC_MINS: S(KC_MINS));
-            break;
-        case KC_EQL:
-            unregister_code16((!shifted) ? KC_EQL: S(KC_EQL));
+        case KC_ENT:
+            unregister_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
             break;
         default:
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
