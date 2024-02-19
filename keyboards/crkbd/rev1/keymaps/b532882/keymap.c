@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_split_3x6_3(
-    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , TD(TD_KC_HOME) , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    _______  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), KC_NO   , KC_LEFT        , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
-    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , TD(TD_KC_END)  , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
-                                 _______      , _______      , _______ , KC_NO          , LCTL(KC_INS)  , LSFT(KC_INS)
+    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_HOME   , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), KC_NO   , KC_LEFT   , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_END    , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
+                                 _______      , _______      , _______ , KC_NO     , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
 
 [2] = LAYOUT_split_3x6_3(
@@ -309,18 +309,35 @@ static bool process_tap_or_long_press_key(
 /////////////////////////////////////////////////////////////////////////////////
 #if 1
 uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
+	int timeout=0;
     switch(keycode) {
+		/*
         case AUTO_SHIFT_NUMERIC:
-            //return get_generic_autoshift_timeout();
+            return get_generic_autoshift_timeout();
         case AUTO_SHIFT_SPECIAL:
-            //return get_generic_autoshift_timeout() * 2;
+            return get_generic_autoshift_timeout() * 2;
         case AUTO_SHIFT_ALPHA:
-            return 200;
+            timeout=200;
+			break;
+		*/
+		case KC_HOME:
+		case KC_END:
+		case KC_D:
+		case KC_E:
+            timeout=500;
+			break;
+		default:
+            timeout=400;
+			break;
     }
-    return 400;
+    return timeout;
 }
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
+		case KC_HOME:
+		case KC_END:
+		case KC_D:
+		case KC_E:
 		case KC_ENT:
             return true;
         default:
@@ -329,6 +346,15 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
+        case KC_HOME:
+            register_code16((!shifted) ? KC_HOME: S(KC_HOME));
+            break;
+        case KC_D:
+            register_code16((!shifted) ? KC_D: A(KC_D));
+            break;
+        case KC_E:
+            register_code16((!shifted) ? KC_E: G(KC_E));
+            break;
         case KC_ENT:
             register_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
             break;
@@ -343,6 +369,15 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
+        case KC_HOME:
+            unregister_code16((!shifted) ? KC_HOME: S(KC_HOME));
+            break;
+        case KC_D:
+            unregister_code16((!shifted) ? KC_D: A(KC_D));
+            break;
+        case KC_E:
+            unregister_code16((!shifted) ? KC_E: G(KC_E));
+            break;
         case KC_ENT:
             unregister_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
             break;
