@@ -48,10 +48,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-    KC_TAB   , KC_Q   , KC_W    , KC_E    , KC_R   , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
-    KC_LCTL  , KC_A   , KC_S    , KC_D    , KC_F   , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , KC_ENT  ,
-    KC_LSFT  , KC_Z   , KC_X    , KC_C    , KC_V   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
-                                  KC_LGUI , KC_LALT, LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
+    KC_TAB   , KC_Q       , KC_W       , LT(0,KC_E)    , KC_R         , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
+    KC_LCTL  , LT(0,KC_A) , LT(0,KC_S) , LT(0,KC_D)    , KC_F         , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , LT(0,KC_ENT)  ,
+    KC_LSFT  , LT(0,KC_Z) , LT(0,KC_X) , LT(0,KC_C)    , LT(0,KC_V)   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
+                                         KC_LGUI       , KC_LALT      , LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
 ),
 
 [1] = LAYOUT_split_3x6_3(
@@ -118,14 +118,14 @@ enum combs {
 
 const uint16_t PROGMEM big_combo     [] = {KC_F   , KC_G   , COMBO_END};
 const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K   , COMBO_END};
-const uint16_t PROGMEM prn_combo     [] = {KC_E   , KC_R   , COMBO_END}; // ( )
-const uint16_t PROGMEM cbr_combo     [] = {KC_D   , KC_F   , COMBO_END}; // { }
-const uint16_t PROGMEM brc_combo     [] = {KC_C   , KC_V   , COMBO_END}; // [ ]
+const uint16_t PROGMEM prn_combo     [] = {LT(0,KC_E) , KC_R, COMBO_END}; // ( )
+const uint16_t PROGMEM cbr_combo     [] = {LT(0,KC_D) , KC_F      , COMBO_END}; // { }
+const uint16_t PROGMEM brc_combo     [] = {LT(0,KC_C) , LT(0,KC_V), COMBO_END}; // [ ]
 const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I   , COMBO_END}; // ==
 const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM, COMBO_END}; // !=
-const uint16_t PROGMEM pass1_combo   [] = {KC_W   , KC_E   , COMBO_END}; //
-const uint16_t PROGMEM pass2_combo   [] = {KC_S   , KC_D   , COMBO_END}; //
-const uint16_t PROGMEM pass3_combo   [] = {KC_X   , KC_C   , COMBO_END}; //
+const uint16_t PROGMEM pass1_combo   [] = {KC_W       , LT(0,KC_E), COMBO_END}; //
+const uint16_t PROGMEM pass2_combo   [] = {LT(0,KC_S) , LT(0,KC_D), COMBO_END}; //
+const uint16_t PROGMEM pass3_combo   [] = {LT(0,KC_X) , LT(0,KC_C), COMBO_END}; //
 const uint16_t PROGMEM game_combo    [] = {KC_TAB , KC_BSPC, COMBO_END}; // game layout
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -320,15 +320,8 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
             timeout=200;
 			break;
 		*/
-		case KC_R:
-		case KC_A:
-		case KC_S:
-		case KC_C:
-		case KC_V:
 		case KC_HOME:
 		case KC_END:
-		case KC_D:
-		case KC_E:
             timeout=500;
 			break;
 		default:
@@ -339,16 +332,8 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
 }
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-		case KC_R:
-		case KC_A:
-		case KC_S:
-		case KC_C:
-		case KC_V:
 		case KC_HOME:
 		case KC_END:
-		case KC_D:
-		case KC_E:
-		case KC_ENT:
             return true;
         default:
             return false;
@@ -356,33 +341,12 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-		case KC_R:
-            register_code16((!shifted) ? KC_R: C(KC_R));
-            break;
-		case KC_A:
-            register_code16((!shifted) ? KC_A: C(KC_A));
-            break;
-		case KC_S:
-            register_code16((!shifted) ? KC_S: C(KC_S));
-            break;
-		case KC_C:
-            register_code16((!shifted) ? KC_C: C(KC_C));
-            break;
-		case KC_V:
-            register_code16((!shifted) ? KC_V: C(KC_V));
-            break;
         case KC_HOME:
             register_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
-        case KC_D:
-            register_code16((!shifted) ? KC_D: A(KC_D));
-            break;
-        case KC_E:
-            register_code16((!shifted) ? KC_E: G(KC_E));
-            break;
-        case KC_ENT:
-            register_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
-            break;
+		case KC_END:
+            register_code16((!shifted) ? KC_HOME: S(KC_END));
+			break;
         default:
             if (shifted) {
                 add_weak_mods(MOD_BIT(KC_LSFT));
@@ -394,33 +358,12 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-		case KC_R:
-            unregister_code16((!shifted) ? KC_R: C(KC_R));
-            break;
-		case KC_A:
-            unregister_code16((!shifted) ? KC_A: C(KC_A));
-            break;
-		case KC_S:
-            unregister_code16((!shifted) ? KC_S: C(KC_S));
-            break;
-		case KC_C:
-            unregister_code16((!shifted) ? KC_C: C(KC_C));
-            break;
-		case KC_V:
-            unregister_code16((!shifted) ? KC_V: C(KC_V));
-            break;
         case KC_HOME:
             unregister_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
-        case KC_D:
-            unregister_code16((!shifted) ? KC_D: A(KC_D));
-            break;
-        case KC_E:
-            unregister_code16((!shifted) ? KC_E: G(KC_E));
-            break;
-        case KC_ENT:
-            unregister_code16((!shifted) ? KC_ENT: C(S(KC_ENT)));
-            break;
+		case KC_END:
+            unregister_code16((!shifted) ? KC_HOME: S(KC_END));
+			break;
         default:
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
             // The IS_RETRO check isn't really necessary here, always using
@@ -603,11 +546,20 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_CBR):
         case TD(TD_BRC):
             return 300;
+		case LT(0, KC_E):
+		case LT(0, KC_A):
+		case LT(0, KC_S):
+		case LT(0, KC_D):
+		case LT(0, KC_Z):
+		case LT(0, KC_C):
+		case LT(0, KC_V):
+            return 500;
         default:
             return 180;
     }
 }
 
+/*LT(0,X) 키 형식을 retro로 지정하면 안된다.*/
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1, KC_SPC):
@@ -636,6 +588,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      * KC_BSPC 는 shift키를 누르면, KC_DEL로 작동하는 로직
      */
     switch (keycode) {
+		case LT(0,KC_ENT):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( C(S(KC_ENT)) ); // Intercept hold function to send SEMICOLON
+				return false;
+			}
+			return true; // this allows for normal processing of key release!
+		case LT(0,KC_E):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( G(KC_E) ); // Intercept hold function to send SEMICOLON
+				return false;
+			}
+			return true; // this allows for normal processing of key release!
+        case LT(0,KC_A):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( C(KC_A) ); // Intercept hold function to send SEMICOLON
+				return false;
+			}
+			return true; // this allows for normal processing of key release!
+		case LT(0,KC_S):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_S)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+		case LT(0,KC_D):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(A(KC_D)); // Intercept hold function to send Alt-D
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+		case LT(0,KC_Z):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_Z)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+		case LT(0,KC_X):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+        case LT(0,KC_C):
+		    if (record->tap.count && record->event.pressed) {
+				return true; // Return true for normal processing of tap keycode
+			} else if (record->event.pressed) {
+				tap_code16( C(KC_C) ); // Intercept hold function to send SEMICOLON
+				return false;
+			}
+			return true; // this allows for normal processing of key release!
+        case LT(0,KC_V):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
         // Store the current modifier state in the variable for later reference
         case KC_BSPC:
             mod_state = get_mods(); // Initialize a boolean variable that keeps track // of the delete key status: registered or not?
