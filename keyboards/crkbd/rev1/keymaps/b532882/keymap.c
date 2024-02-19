@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // 
 [6] = LAYOUT_split_3x6_3(
-    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
+   _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
     _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
     _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
                                     _______ , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_NO
@@ -320,6 +320,11 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
             timeout=200;
 			break;
 		*/
+		case KC_R:
+		case KC_A:
+		case KC_S:
+		case KC_C:
+		case KC_V:
 		case KC_HOME:
 		case KC_END:
 		case KC_D:
@@ -334,6 +339,11 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
 }
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
+		case KC_R:
+		case KC_A:
+		case KC_S:
+		case KC_C:
+		case KC_V:
 		case KC_HOME:
 		case KC_END:
 		case KC_D:
@@ -346,6 +356,21 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
+		case KC_R:
+            register_code16((!shifted) ? KC_R: C(KC_R));
+            break;
+		case KC_A:
+            register_code16((!shifted) ? KC_A: C(KC_A));
+            break;
+		case KC_S:
+            register_code16((!shifted) ? KC_S: C(KC_S));
+            break;
+		case KC_C:
+            register_code16((!shifted) ? KC_C: C(KC_C));
+            break;
+		case KC_V:
+            register_code16((!shifted) ? KC_V: C(KC_V));
+            break;
         case KC_HOME:
             register_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
@@ -369,6 +394,21 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
+		case KC_R:
+            unregister_code16((!shifted) ? KC_R: C(KC_R));
+            break;
+		case KC_A:
+            unregister_code16((!shifted) ? KC_A: C(KC_A));
+            break;
+		case KC_S:
+            unregister_code16((!shifted) ? KC_S: C(KC_S));
+            break;
+		case KC_C:
+            unregister_code16((!shifted) ? KC_C: C(KC_C));
+            break;
+		case KC_V:
+            unregister_code16((!shifted) ? KC_V: C(KC_V));
+            break;
         case KC_HOME:
             unregister_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
