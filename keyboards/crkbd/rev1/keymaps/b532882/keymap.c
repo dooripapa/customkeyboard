@@ -345,7 +345,7 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
             register_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
 		case KC_END:
-            register_code16((!shifted) ? KC_HOME: S(KC_END));
+            register_code16((!shifted) ? KC_END: S(KC_END));
 			break;
         default:
             if (shifted) {
@@ -362,7 +362,7 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
             unregister_code16((!shifted) ? KC_HOME: S(KC_HOME));
             break;
 		case KC_END:
-            unregister_code16((!shifted) ? KC_HOME: S(KC_END));
+            unregister_code16((!shifted) ? KC_END: S(KC_END));
 			break;
         default:
             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
