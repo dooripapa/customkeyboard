@@ -48,10 +48,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-    KC_TAB   , KC_Q       , KC_W       , LT(0,KC_E)    , KC_R         , KC_T        , KC_Y        , KC_U    , KC_I     , KC_O     , KC_P      , KC_BSPC ,
-    KC_LCTL  , LT(0,KC_A) , LT(0,KC_S) , LT(0,KC_D)    , KC_F         , KC_G        , KC_H        , KC_J    , KC_K     , KC_L     , KC_SCLN   , LT(0,KC_ENT)  ,
-    KC_LSFT  , LT(0,KC_Z) , LT(0,KC_X) , LT(0,KC_C)    , LT(0,KC_V)   , KC_B        , KC_N        , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH   , KC_RSFT ,
-                                         KC_LGUI       , KC_LALT      , LT(1,KC_SPC), LT(2,KC_SPC), MO(5)   , LT(3, QK_LEADER)
+    KC_TAB   , KC_Q   , KC_W   , KC_E    , KC_R       , KC_T         , KC_Y         , KC_U          , KC_I     , KC_O     , KC_P    , KC_BSPC      ,
+    KC_LCTL  , KC_A   , KC_S   , KC_D    , LT(5,KC_F) , KC_G         , KC_H         , KC_J          , KC_K     , KC_L     , KC_SCLN , LT(0,KC_ENT) ,
+    KC_LSFT  , KC_Z   , KC_X   , KC_C    , KC_V       , KC_B         , KC_N         , KC_M          , KC_COMM  , KC_DOT   , KC_SLSH , KC_RSFT      ,
+                                 KC_LGUI , KC_LALT    , LT(1,KC_SPC) , LT(2,KC_SPC) , LT(0,KC_RALT) , MO(3)
 ),
 
 [1] = LAYOUT_split_3x6_3(
@@ -83,15 +83,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_split_3x6_3(
-    _______  , KC_NO  , KC_F7   , KC_F8  , KC_F9   , KC_F10   , KC_NO     , KC_7     , KC_8     , KC_9     , KC_0    , _______ ,
-    _______  , KC_NO  , KC_F4   , KC_F5  , KC_F6   , KC_F11   , KC_DOT    , KC_4     , KC_5     , KC_6     , KC_NO   , _______ ,
-    _______  , KC_NO  , KC_F1   , KC_F2  , KC_F3   , KC_F12   , KC_COMM   , KC_1     , KC_2     , KC_3     , KC_SLSH , _______ ,
-                                _______  , _______ , KC_SPC   , KC_SPC    , _______  , _______
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_NO       , LT(5,KC_7)   , LT(5,KC_8)   , LT(5,KC_9)   , LT(5,KC_0) , _______ ,
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_DOT      , LT(5,KC_4)   , LT(5,KC_5)   , LT(5,KC_6)   , KC_NO      , _______ ,
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_COMM     , LT(5,KC_1)   , LT(5,KC_2)   , LT(5,KC_3)   , KC_SLSH    , _______ ,
+                                           _______  , _______     , KC_NO    , KC_NO       , KC_F11       , KC_F12
 ),
 
 // 
 [6] = LAYOUT_split_3x6_3(
-   _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
+    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
     _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
     _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
                                     _______ , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_NO
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if 1
 
 enum combs {
-    BIG,
+	BIG,
     ESC,
     PRN,  // ( )
     CBR,  // { }
@@ -116,20 +116,24 @@ enum combs {
     GAME
 };
 
-const uint16_t PROGMEM big_combo     [] = {KC_F   , KC_G   , COMBO_END};
-const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K   , COMBO_END};
-const uint16_t PROGMEM prn_combo     [] = {LT(0,KC_E) , KC_R, COMBO_END}; // ( )
-const uint16_t PROGMEM cbr_combo     [] = {LT(0,KC_D) , KC_F      , COMBO_END}; // { }
-const uint16_t PROGMEM brc_combo     [] = {LT(0,KC_C) , LT(0,KC_V), COMBO_END}; // [ ]
-const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I   , COMBO_END}; // ==
-const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM, COMBO_END}; // !=
-const uint16_t PROGMEM pass1_combo   [] = {KC_W       , LT(0,KC_E), COMBO_END}; //
-const uint16_t PROGMEM pass2_combo   [] = {LT(0,KC_S) , LT(0,KC_D), COMBO_END}; //
-const uint16_t PROGMEM pass3_combo   [] = {LT(0,KC_X) , LT(0,KC_C), COMBO_END}; //
-const uint16_t PROGMEM game_combo    [] = {KC_TAB , KC_BSPC, COMBO_END}; // game layout
+const uint16_t PROGMEM big_combo     [] = {LT(5,KC_F) , KC_G, COMBO_END};
+const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K    , COMBO_END};
+const uint16_t PROGMEM prn_combo     [] = {KC_E   , KC_R    , COMBO_END}; // ( )
+const uint16_t PROGMEM cbr_combo     [] = {KC_D   , KC_F    , COMBO_END}; // { }
+const uint16_t PROGMEM brc_combo     [] = {KC_C   , KC_V    , COMBO_END}; // [ ]
+const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I    , COMBO_END}; // ==
+const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM , COMBO_END}; // !=
+const uint16_t PROGMEM pass1_combo   [] = {KC_W   , KC_E    , COMBO_END}; //
+const uint16_t PROGMEM pass2_combo   [] = {KC_S   , KC_D    , COMBO_END}; //
+const uint16_t PROGMEM pass3_combo   [] = {KC_X   , KC_C    , COMBO_END}; //
+const uint16_t PROGMEM game_combo    [] = {KC_TAB , KC_BSPC , COMBO_END}; // game layout
 
+/*
+COMBO( big_combo , CW_TOGG ),
+COMBO_ACTION( esc_combo      ),
+*/
 combo_t key_combos[COMBO_COUNT] = {
-    [BIG]        = COMBO( big_combo , CW_TOGG ),
+    [BIG]        = COMBO(big_combo , CW_TOGG ),
     [ESC]        = COMBO_ACTION( esc_combo      ),
     [PRN]        = COMBO_ACTION( prn_combo      ),
     [CBR]        = COMBO_ACTION( cbr_combo      ),
@@ -525,12 +529,22 @@ bool oled_task_user(void) {
     return false;
 }
 
+/*Rolling key*/
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(2,KC_SPC):
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_SPC):
-        case LT(2, KC_SPC):
-		case LT(3, QK_LEADER):
+        case LT(1,KC_SPC):
+		case LT(5,KC_F):
             // Immediately select the hold action when another key is tapped.
             return true;
         default:
@@ -546,25 +560,52 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_CBR):
         case TD(TD_BRC):
             return 300;
-		case LT(0, KC_E):
-		case LT(0, KC_A):
-		case LT(0, KC_S):
-		case LT(0, KC_D):
-		case LT(0, KC_Z):
-		case LT(0, KC_C):
-		case LT(0, KC_V):
+		case LT(0,KC_G):
+		case LT(0,KC_ENT):
+            return 300;
+		case LT(0,KC_RALT):
+			return 400;
+		case LT(5,KC_1):
+		case LT(5,KC_2):
+		case LT(5,KC_3):
+		case LT(5,KC_4):
+		case LT(5,KC_5):
+		case LT(5,KC_6):
+		case LT(5,KC_7):
+		case LT(5,KC_8):
+		case LT(5,KC_9):
+		case LT(5,KC_0):
             return 500;
+        case LT(2,KC_SPC):
+            return 220;
         default:
             return 180;
     }
 }
 
-/*LT(0,X) 키 형식을 retro로 지정하면 안된다.*/
+/* 
+ * LT(2,KC_SPC) 한번 누른 후, 두번 째 hold 했을 경우
+ * 연속키가 자동으로 입력된다. 그 간격을 조정하는 함수.
+ */
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(2,KC_SPC):
+            return 100;
+        default:
+            return 180;
+    }
+}
+
+/* 
+ * LT(0,X) 키 형식을 retro로 지정하면 안된다
+ * 이 함수의 기능은, hold한 후 제2의 키를 입력하지 않는다면, 
+ * LT(1,KC_SPC) 라고하면, KC_SPC키가 바로 입력된다.
+ */
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_SPC):
-        case LT(2, KC_SPC):
-		case LT(3, QK_LEADER):
+		case LT(5,KC_F):
+        case LT(1,KC_SPC):
+        case LT(2,KC_SPC):
             return true;
         default:
             return false;
@@ -577,8 +618,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t mod_state;
     static bool delkey_registered ,ctrlbrace_registered ,ctrlt_registered;
     static bool j_registered, k_registered;
-    static bool right_alt;
-    static bool right_ctrl;
 
     if (record->event.pressed) {
         set_keylog(keycode, record);
@@ -588,62 +627,84 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      * KC_BSPC 는 shift키를 누르면, KC_DEL로 작동하는 로직
      */
     switch (keycode) {
+		case LT(0,KC_SCLN):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_BSLS );
+				return false;
+			}
+			return true;
 		case LT(0,KC_ENT):
             if (!record->tap.count && record->event.pressed) {
-				tap_code16( C(S(KC_ENT)) ); // Intercept hold function to send SEMICOLON
+				tap_code16( C(S(KC_ENT)) ); 
 				return false;
 			}
-			return true; // this allows for normal processing of key release!
-		case LT(0,KC_E):
+			return true;
+        case LT(0,KC_RALT):
             if (!record->tap.count && record->event.pressed) {
-				tap_code16( G(KC_E) ); // Intercept hold function to send SEMICOLON
+				tap_code16( KC_RCTL );
 				return false;
 			}
-			return true; // this allows for normal processing of key release!
-        case LT(0,KC_A):
+			return true;
+		case LT(5,KC_1):
             if (!record->tap.count && record->event.pressed) {
-				tap_code16( C(KC_A) ); // Intercept hold function to send SEMICOLON
+				tap_code16( KC_F1 );
 				return false;
 			}
-			return true; // this allows for normal processing of key release!
-		case LT(0,KC_S):
+			return true;
+		case LT(5,KC_2):
             if (!record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_S)); // Intercept hold function to send Ctrl-X
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-		case LT(0,KC_D):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(A(KC_D)); // Intercept hold function to send Alt-D
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-		case LT(0,KC_Z):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_Z)); // Intercept hold function to send Ctrl-X
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-		case LT(0,KC_X):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
-        case LT(0,KC_C):
-		    if (record->tap.count && record->event.pressed) {
-				return true; // Return true for normal processing of tap keycode
-			} else if (record->event.pressed) {
-				tap_code16( C(KC_C) ); // Intercept hold function to send SEMICOLON
+				tap_code16( KC_F2 );
 				return false;
 			}
-			return true; // this allows for normal processing of key release!
-        case LT(0,KC_V):
+			return true;
+		case LT(5,KC_3):
             if (!record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
-                return false;
-            }
-            return true;             // Return true for normal processing of tap keycode
+				tap_code16( KC_F3 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_4):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F4 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_5):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F5 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_6):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F6 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_7):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F7 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_8):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F8 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_9):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F9 );
+				return false;
+			}
+			return true;
+		case LT(5,KC_0):
+            if (!record->tap.count && record->event.pressed) {
+				tap_code16( KC_F10 );
+				return false;
+			}
+			return true;
         // Store the current modifier state in the variable for later reference
         case KC_BSPC:
             mod_state = get_mods(); // Initialize a boolean variable that keeps track // of the delete key status: registered or not?
@@ -744,44 +805,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
 			break;
-            //shift + LT(2, KC_SPC) 누르면 한영Key
-        case LT(2, KC_SPC):
-            mod_state = get_mods();
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    register_code(KC_RALT);
-                    right_alt = true;
-                    set_mods(mod_state);
-                    return false;
-                }
-            } else {
-                if (right_alt) {
-                    unregister_code(KC_RALT);
-                    right_alt = false;
-                    return false;
-                }
-			}
-            break;
-            //shift + MO(5) 누르면 한자Key
-        case MO(5):
-            mod_state = get_mods();
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    register_code(KC_RCTL);
-                    right_ctrl= true;
-                    set_mods(mod_state);
-                    return false;
-                }
-            } else {
-                if (right_ctrl) {
-                    unregister_code(KC_RCTL);
-                    right_ctrl = false;
-                    return false;
-                }
-			}
-            break;
         default:
             break;
     }
