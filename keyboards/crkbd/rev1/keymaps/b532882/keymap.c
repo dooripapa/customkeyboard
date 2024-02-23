@@ -577,7 +577,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 		case LT(5,KC_0):
             return 500;
         case LT(2,KC_SPC):
-            return 220;
+            return 170;
         default:
             return 180;
     }

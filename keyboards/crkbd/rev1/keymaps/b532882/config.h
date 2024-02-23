@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define COMBO_SHOULD_TRIGGER
 #define COMBO_COUNT 11
-#define COMBO_TERM 45
+#define COMBO_TERM 35
 
 /* shift feature */
 //#define AUTO_SHIFT_TIMEOUT_PER_KEY
