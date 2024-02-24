@@ -119,7 +119,7 @@ enum combs {
 const uint16_t PROGMEM big_combo     [] = {LT(5,KC_F) , KC_G, COMBO_END};
 const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K    , COMBO_END};
 const uint16_t PROGMEM prn_combo     [] = {KC_E   , KC_R    , COMBO_END}; // ( )
-const uint16_t PROGMEM cbr_combo     [] = {KC_D   , KC_F    , COMBO_END}; // { }
+const uint16_t PROGMEM cbr_combo     [] = {KC_D   , LT(5,KC_F)    , COMBO_END}; // { }
 const uint16_t PROGMEM brc_combo     [] = {KC_C   , KC_V    , COMBO_END}; // [ ]
 const uint16_t PROGMEM eql_combo     [] = {KC_U   , KC_I    , COMBO_END}; // ==
 const uint16_t PROGMEM neq_combo     [] = {KC_M   , KC_COMM , COMBO_END}; // !=
