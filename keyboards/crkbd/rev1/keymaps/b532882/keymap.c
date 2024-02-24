@@ -532,9 +532,9 @@ bool oled_task_user(void) {
 /*Rolling key*/
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(2,KC_SPC):
+        //case LT(2,KC_SPC):
             // Immediately select the hold action when another key is pressed.
-            return true;
+            //return true;
         default:
             // Do not select the hold action when another key is pressed.
             return false;
@@ -544,6 +544,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1,KC_SPC):
+        case LT(2,KC_SPC):
 		case LT(5,KC_F):
             // Immediately select the hold action when another key is tapped.
             return true;
@@ -576,8 +577,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 		case LT(5,KC_9):
 		case LT(5,KC_0):
             return 500;
+		case LT(5,KC_F):
         case LT(2,KC_SPC):
-            return 170;
+            return 210;
         default:
             return 180;
     }
