@@ -11,27 +11,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_QWERTY] = LAYOUT(
-  KC_GRV,         KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-  KC_TAB,         KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-  KC_LCTL,        KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  OSM(MOD_LSFT),  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL ,
-                              KC_LGUI, KC_LCTL, MO(1), KC_ENT,          KC_SPC, MO(2), KC_RCTL, QK_LEADER
+  KC_ESC  ,  KC_1  ,  KC_2  ,  KC_3    , KC_4   ,  KC_5   ,                             KC_6   ,  KC_7  ,  KC_8     ,  KC_9   ,  KC_0    , KC_BSPC      ,
+  KC_TAB  ,  KC_Q  ,  KC_W  ,  KC_E    , KC_R   ,  KC_T   ,                             KC_Y   ,  KC_U  ,  KC_I     ,  KC_O   ,  KC_P    , KC_BSLS      ,
+  KC_LCTL ,  KC_A  ,  KC_S  ,  KC_D    , KC_F   ,  KC_G   ,                             KC_H   ,  KC_J  ,  KC_K     ,  KC_L   ,  KC_SCLN , LT(0,KC_ENT) ,
+  KC_LSFT ,  KC_Z  ,  KC_X  ,  KC_C    , KC_V   ,  KC_B   , KC_LBRC     , KC_RBRC     , KC_N   ,  KC_M  ,  KC_COMM  ,  KC_DOT ,  KC_SLSH , KC_RSFT      ,
+                               KC_LGUI , KC_LALT,  KC_LCTL, LT(1,KC_SPC), LT(2,KC_SPC), KC_RCTL,  MO(3) ,  QK_LEADER
 ),
 
 [_LOWER] = LAYOUT(
-  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,         KC_F7,         KC_F8,        KC_F9,         KC_F10,  _______,
-  KC_TRNS, _______, _______, _______, _______, _______,                   _______,       _______,       _______,      _______,       _______, LSFT(KC_DEL),
-  KC_TRNS, _______, _______, KC_LCTL, KC_LSFT, CW_TOGG,                   KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______, C(S(KC_ENT)),
-  KC_TRNS, _______, _______, _______, _______, _______, _______, KC_BSPC, C(S(KC_LEFT)), LSFT(KC_HOME), LSFT(KC_END), C(S(KC_RGHT)), _______, _______,
-                             KC_TRNS, KC_TRNS, _______, KC_ENT,  KC_SPC, _______, LCTL(KC_INS), LSFT(KC_INS)
+  _______ ,  KC_F1 ,  KC_F2 ,  KC_F3        , KC_F4        ,  KC_F5  ,                            KC_F6        , KC_F7         , KC_F8         , KC_F9   ,  KC_F10  , KC_BSPC      ,
+  _______ ,  KC_NO ,  KC_NO ,  KC_NO        , KC_NO        ,  KC_NO  ,                            KC_HOME      , C(S(KC_TAB))  , C(KC_TAB)     , KC_NO   ,  KC_NO   , KC_BSLS      ,
+  _______ ,  KC_NO ,  KC_NO ,  C(A(KC_LEFT)), C(A(KC_RGHT)),  KC_NO  ,                            KC_LEFT      , KC_DOWN       , KC_UP         , KC_RGHT ,  KC_NO   , LT(0,KC_ENT) ,
+  _______ ,  KC_NO ,  KC_NO ,  KC_NO        , KC_NO        ,  KC_NO  , CW_TOGG    , CW_TOGG     , KC_END       , G(A(KC_LEFT)) , G(A(KC_RIGHT)), KC_NO   ,  KC_NO   , KC_RSFT      ,
+                               KC_LGUI      , KC_LALT      ,  KC_LCTL, _______    , KC_NO       , LCTL(KC_INS) , LSFT(KC_INS)  , KC_NO
 ),
 
 [_RAISE] = LAYOUT(
-  _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_QUOT,
-  _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-  _______, KC_GRV,  KC_TILD, KC_EQL,  KC_PLUS, _______,                     _______, KC_MINS, KC_PIPE, KC_UNDS, KC_BSLS, _______,
-  _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______,  _______, KC_TRNS,  _______, _______, _______
+  _______ ,  KC_F1  , KC_F2    , KC_F3     , KC_F4     , KC_F5      ,                            KC_F6        , KC_F7         , KC_F8       , KC_F9    , KC_F10    , KC_BSPC      ,
+  _______ ,  S(KC_1), S(KC_2)  , S(KC_3)   , S(KC_4)   , S(KC_5)    ,                            KC_EQL       , KC_MINS       , S(KC_QUOT)  , KC_QUOT  , S(KC_SCLN), KC_NO        ,
+  _______ ,  KC_GRV , S(KC_GRV), KC_LCBR   , KC_RCBR   , S(KC_BSLS) ,                            S(KC_EQL)    , S(KC_MINS)    , S(KC_COMM)  , S(KC_DOT), S(KC_SLSH), LT(0,KC_ENT) ,
+  _______ ,  KC_NO  , KC_NO    , KC_NO     , KC_NO     , KC_NO      , CW_TOGG    , CW_TOGG     , KC_NO        , KC_NO         , KC_NO       , KC_NO    , KC_NO     , KC_RSFT      ,
+                                 _______   , _______   , _______    , _______    , _______     , _______      , _______       , _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -48,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
   [_ADJUST] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  _______, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX,                   XXXXXXX , XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, C(KC_F6), S(KC_F6), XXXXXXX,                   XXXXXXX , A(KC_INS), XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX,                   XXXXXXX , XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX  , XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                             _______ , _______ , _______, _______, _______,  _______, _______  , _______
   )
 };
 
