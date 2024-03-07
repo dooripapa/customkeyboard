@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [1] = LAYOUT_split_3x6_3(
     _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_HOME   , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    _______  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), KC_NO   , KC_LEFT   , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), CW_TOGG , KC_LEFT   , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
     _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_END    , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
                                  _______      , _______      , _______ , KC_NO     , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
@@ -103,7 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if 1
 
 enum combs {
-	BIG,
     ESC,
     PRN,  // ( )
     CBR,  // { }
@@ -116,7 +115,6 @@ enum combs {
     GAME
 };
 
-const uint16_t PROGMEM big_combo     [] = {LT(5,KC_F) , KC_G, COMBO_END};
 const uint16_t PROGMEM esc_combo     [] = {KC_J   , KC_K    , COMBO_END};
 const uint16_t PROGMEM prn_combo     [] = {KC_E   , KC_R    , COMBO_END}; // ( )
 const uint16_t PROGMEM cbr_combo     [] = {KC_D   , LT(5,KC_F)    , COMBO_END}; // { }
@@ -133,7 +131,7 @@ COMBO( big_combo , CW_TOGG ),
 COMBO_ACTION( esc_combo      ),
 */
 combo_t key_combos[COMBO_COUNT] = {
-    [BIG]        = COMBO(big_combo , CW_TOGG ),
+//    [BIG]        = COMBO(big_combo , CW_TOGG ),
     [ESC]        = COMBO_ACTION( esc_combo      ),
     [PRN]        = COMBO_ACTION( prn_combo      ),
     [CBR]        = COMBO_ACTION( cbr_combo      ),
@@ -148,7 +146,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     switch (combo_index) {
-        case BIG:
         case ESC:
         case PRN:  // ( )
         case CBR:  // { }
@@ -561,9 +558,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_CBR):
         case TD(TD_BRC):
             return 300;
-		case LT(0,KC_G):
 		case LT(0,KC_ENT):
-            return 300;
+            return 200;
 		case LT(5,KC_1):
 		case LT(5,KC_2):
 		case LT(5,KC_3):
@@ -574,7 +570,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 		case LT(5,KC_8):
 		case LT(5,KC_9):
 		case LT(5,KC_0):
-            return 500;
+            return 300;
         case LT(2,KC_SPC):
             return 150;
 		case LT(5,KC_F):
