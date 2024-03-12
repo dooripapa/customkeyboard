@@ -69,10 +69,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_split_3x6_3(
-    _______ , KC_NO   , KC_NO  , C(KC_F6), S(KC_F6), C(S(KC_F10))  , KC_NO     , KC_NO    , A(KC_INS), KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-                                _______  , _______ , KC_SPC        , KC_SPC    , KC_NO    , _______
+    _______ , KC_NO   , KC_NO   , C(KC_F6) , S(KC_F6), C(S(KC_F10))  , KC_NO     , KC_NO    , A(KC_INS), KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , C(KC_F2), C(KC_F8) , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , KC_NO   , KC_NO    , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+                                 _______   , _______ , KC_SPC        , KC_SPC    , KC_NO    , _______
 ),                                                           
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
@@ -178,21 +178,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             if (pressed) {
                 tap_code16(KC_LPRN);
                 tap_code16(KC_RPRN);
-                tap_code16(KC_LEFT);
             }
             break;
         case CBR:
             if (pressed) {
                 tap_code16(KC_LCBR);
                 tap_code16(KC_RCBR);
-                tap_code16(KC_LEFT);
             }
             break;
         case BRC:
             if (pressed) {
                 tap_code16(KC_LBRC);
                 tap_code16(KC_RBRC);
-                tap_code16(KC_LEFT);
             }
             break;
         case EQL:
