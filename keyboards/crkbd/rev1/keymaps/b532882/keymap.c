@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [1] = LAYOUT_split_3x6_3(
     _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_HOME   , C(S(KC_TAB))  , C(KC_TAB)      , KC_NO   , KC_NO  , _______   ,
-    _______  , KC_NO  , KC_NO  , C(A(KC_LEFT)), C(A(KC_RGHT)), CW_TOGG , KC_LEFT   , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
+    _______  , KC_NO  , KC_NO  , KC_LSFT      , KC_LCTL      , CW_TOGG , KC_LEFT   , KC_DOWN       , KC_UP          , KC_RGHT , KC_NO  , _______   ,
     _______  , KC_NO  , KC_NO  , KC_NO        , KC_NO        , KC_NO   , KC_END    , G(A(KC_LEFT)) , G(A(KC_RIGHT)) , KC_NO   , KC_NO  , _______   ,
                                  _______      , _______      , _______ , KC_NO     , LCTL(KC_INS)  , LSFT(KC_INS)
 ),
@@ -69,11 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_split_3x6_3(
-    _______ , KC_NO   , KC_NO  , C(KC_F6), S(KC_F6), KC_PSCR  , KC_NO     , KC_NO    , A(KC_INS), KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_APP   , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_INS   , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-                                _______  , _______ , KC_SPC   , KC_SPC    , KC_NO    , _______
-),
+    _______ , KC_NO   , KC_NO  , C(KC_F6), S(KC_F6), C(S(KC_F10))  , KC_NO     , KC_NO    , A(KC_INS), KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , KC_NO  , KC_NO   , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
+                                _______  , _______ , KC_SPC        , KC_SPC    , KC_NO    , _______
+),                                                           
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
     KC_TAB  , KC_Q  , KC_W   , KC_E     , KC_R     , KC_T     , KC_Y      , KC_U     , KC_I     , KC_O     , KC_P    , KC_BSPC ,
@@ -586,7 +586,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(2,KC_SPC):
-            return 100;
+            return 150;
         default:
             return 180;
     }
