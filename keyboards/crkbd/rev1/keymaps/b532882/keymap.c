@@ -48,10 +48,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_split_3x6_3(
-    KC_TAB   , KC_Q   , KC_W   , KC_E    , KC_R       , KC_T         , KC_Y         , KC_U    , KC_I     , KC_O     , KC_P    , KC_BSPC      ,
-    KC_LCTL  , KC_A   , KC_S   , KC_D    , LT(5,KC_F) , KC_G         , KC_H         , KC_J    , KC_K     , KC_L     , KC_SCLN , LT(0,KC_ENT) ,
-    KC_LSFT  , KC_Z   , KC_X   , KC_C    , KC_V       , KC_B         , KC_N         , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH , KC_RSFT      ,
-                                 KC_LGUI , KC_LALT    , LT(1,KC_SPC) , LT(2,KC_SPC) , KC_RALT , MO(3)
+    KC_TAB   , KC_Q      , KC_W   , KC_E    , KC_R       , KC_T         , KC_Y         , KC_U    , KC_I     , KC_O     , KC_P    , KC_BSPC      ,
+    KC_LCTL  , LT(6,KC_A), KC_S   , KC_D    , LT(5,KC_F) , KC_G         , KC_H         , KC_J    , KC_K     , KC_L     , KC_SCLN , LT(0,KC_ENT) ,
+    KC_LSFT  , KC_Z      , KC_X   , KC_C    , KC_V       , KC_B         , KC_N         , KC_M    , KC_COMM  , KC_DOT   , KC_SLSH , KC_RSFT      ,
+                                    KC_LGUI , KC_LALT    , LT(1,KC_SPC) , LT(2,KC_SPC) , KC_RALT , MO(3)
 ),
 
 [1] = LAYOUT_split_3x6_3(
@@ -83,18 +83,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_split_3x6_3(
-    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_NO       , LT(5,KC_7)   , LT(5,KC_8)   , LT(5,KC_9)   , LT(5,KC_0) , _______ ,
-    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_DOT      , LT(5,KC_4)   , LT(5,KC_5)   , LT(5,KC_6)   , KC_NO      , _______ ,
-    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_COMM     , LT(5,KC_1)   , LT(5,KC_2)   , LT(5,KC_3)   , KC_SLSH    , _______ ,
-                                           _______  , _______     , KC_NO    , KC_NO       , KC_F11       , KC_F12
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_NO       , KC_7      , KC_8      , KC_9   , KC_0       , _______ ,
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_DOT      , KC_4      , KC_5      , KC_6   , KC_NO      , _______ ,
+    _______  , KC_NO      , KC_NO      , KC_NO      , KC_NO       , KC_NO    , KC_COMM     , KC_1      , KC_2      , KC_3   , KC_SLSH    , _______ ,
+                                           _______  , _______     , KC_NO    , KC_NO       , _______   , _______
 ),
 
-// 
 [6] = LAYOUT_split_3x6_3(
-    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
-    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
-    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO  , KC_NO   , _______ ,
-                                    _______ , _______  , KC_SPC   , KC_SPC   , KC_COMM  , KC_NO
+    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_F7    , KC_F8    , KC_F9  , KC_F10   , _______ ,
+    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_F4    , KC_F5    , KC_F6  , KC_F11   , _______ ,
+    _______  , KC_NO     , KC_NO  , KC_NO   , KC_NO    , KC_NO    , KC_NO    , KC_F1    , KC_F2    , KC_F3  , KC_F12   , _______ ,
+                                    _______ , _______  , KC_SPC   , KC_SPC   , _______ , _______
 ),
 
 };
@@ -539,6 +538,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1,KC_SPC):
         case LT(2,KC_SPC):
+		case LT(6,KC_A):
 		case LT(5,KC_F):
             // Immediately select the hold action when another key is tapped.
             return true;
@@ -557,19 +557,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 300;
 		case LT(0,KC_ENT):
             return 200;
-		case LT(5,KC_1):
-		case LT(5,KC_2):
-		case LT(5,KC_3):
-		case LT(5,KC_4):
-		case LT(5,KC_5):
-		case LT(5,KC_6):
-		case LT(5,KC_7):
-		case LT(5,KC_8):
-		case LT(5,KC_9):
-		case LT(5,KC_0):
-            return 300;
         case LT(2,KC_SPC):
             return 150;
+		case LT(6,KC_A):
 		case LT(5,KC_F):
         default:
             return 180;
@@ -596,6 +586,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
  */
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+		case LT(6,KC_A):
 		case LT(5,KC_F):
         case LT(1,KC_SPC):
         case LT(2,KC_SPC):
@@ -620,78 +611,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      * KC_BSPC 는 shift키를 누르면, KC_DEL로 작동하는 로직
      */
     switch (keycode) {
-		case LT(0,KC_SCLN):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_BSLS );
-				return false;
-			}
-			return true;
-		case LT(0,KC_ENT):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( C(S(KC_ENT)) ); 
-				return false;
-			}
-			return true;
-		case LT(5,KC_1):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F1 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_2):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F2 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_3):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F3 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_4):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F4 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_5):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F5 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_6):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F6 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_7):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F7 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_8):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F8 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_9):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F9 );
-				return false;
-			}
-			return true;
-		case LT(5,KC_0):
-            if (!record->tap.count && record->event.pressed) {
-				tap_code16( KC_F10 );
-				return false;
-			}
-			return true;
         // Store the current modifier state in the variable for later reference
         case KC_BSPC:
             mod_state = get_mods(); // Initialize a boolean variable that keeps track // of the delete key status: registered or not?
