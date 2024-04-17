@@ -538,8 +538,6 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1,KC_SPC):
         case LT(2,KC_SPC):
-		case LT(6,KC_A):
-		case LT(5,KC_F):
             // Immediately select the hold action when another key is tapped.
             return true;
         default:
@@ -561,6 +559,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 150;
 		case LT(6,KC_A):
 		case LT(5,KC_F):
+            return 230;
         default:
             return 180;
     }
