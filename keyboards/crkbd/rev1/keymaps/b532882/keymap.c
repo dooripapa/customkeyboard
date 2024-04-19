@@ -210,7 +210,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
         case PASSWRD2:
             if (pressed) {
-                SEND_STRING("Rlqkstlqdldnjf12!");
+                SEND_STRING("Rlqksdldnjf2!");
             }
             break;
         case PASSWRD3:
