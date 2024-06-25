@@ -69,10 +69,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [3] = LAYOUT_split_3x6_3(
-    _______ , KC_NO   , KC_NO   , C(KC_F6) , S(KC_F6), C(S(KC_F10))  , KC_NO     , KC_NO    , A(KC_INS), KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , C(KC_F2), KC_NO    , KC_NO   , KC_NO         , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-    _______ , KC_NO   , KC_NO   , KC_NO    , KC_NO   , C(KC_F8)      , KC_NO     , KC_NO    , KC_NO    , KC_NO   , KC_NO   , _______ ,
-                                 _______   , _______ , KC_SPC        , KC_SPC    , KC_NO    , _______
+    _______ , KC_NO   , KC_NO   , C(KC_F6) , S(KC_F6), C(S(KC_F10))  , KC_NO     , KC_NO     , A(KC_INS), KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , C(KC_F2), KC_NO    , KC_NO   , KC_NO         , KC_NO     , KC_NO     , KC_NO    , KC_NO   , KC_NO   , _______ ,
+    _______ , KC_NO   , KC_NO   , KC_NO    , KC_NO   , C(KC_F8)      , C(A(KC_N)), C(A(KC_M)), KC_NO    , KC_NO   , KC_NO   , _______ ,
+                                 _______   , _______ , KC_SPC        , KC_SPC    , KC_NO     , _______
 ),                                                           
 /*Game layout*/
 [4] = LAYOUT_split_3x6_3(
